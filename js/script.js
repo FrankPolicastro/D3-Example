@@ -27,6 +27,7 @@ function drawScatterplot(data) {
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
         .attr("transform", `translate(${margin.left}, ${margin.top})`);
+        
 
     console.log(d3.extent(data, function(d) { return d.daysAfterMidtermsAnnounced }));
 
@@ -35,7 +36,15 @@ function drawScatterplot(data) {
         .domain(d3.extent(data, function(d) { return d.daysAfterMidtermsAnnounced }))
         .range([margin.left, width]);
     // add x axis
+
+    //add background color - FP 11-8-2023
+    svg.append("rect")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .attr("fill", "pink");
+
     svg.append("g")
+        .style("font", "14px times") // increase font FP 11-8-2023
         .attr("class", "axis")
         .attr("transform", `translate(0, ${height})`)
         .call(d3.axisBottom(xScale));
@@ -43,12 +52,14 @@ function drawScatterplot(data) {
     // create y scale
     const yScale = d3.scaleLinear()
         .domain(d3.extent(data, function(d) { return d.year }))
-        .range([ 0, height ]);
+        .range([75, height-75]); // move y axis above x axis FP 11-8-2023
     // add Y axis
     svg.append("g")
+        .style("font", "14px times") // increase font FP 11-8-2023
         .attr("class", "axis")
         .attr("transform", `translate(0, 0)`)
-        .call(d3.axisLeft(yScale));
+        .call(d3.axisLeft(yScale)
+        .tickFormat(d3.format('d')));  //tickFormat to remove commas - FP 11-8-2023
 
     // add circles
     svg.selectAll(".announcedCircle")
@@ -58,9 +69,9 @@ function drawScatterplot(data) {
         .attr('class', 'announcedCircle')
         .attr("cx", function(row) { return xScale(row.daysAfterMidtermsAnnounced)})
         .attr("cy", function(row) { return yScale(row.year)})
-        .attr("r", 10) 
-        .style("fill", 'orange')
-        .style('opacity', 0.75);
+        .attr("r", 5) // changed teh circle size to '5' - FP 11-8-2023
+        .style("fill", 'blue') // changed the color to 'blue' - FP 11-8-2023
+        .style('opacity', 0.75); 
 }
 
 main();

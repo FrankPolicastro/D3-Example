@@ -26,7 +26,7 @@ function drawScatterplot(data) {
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
-        //.attr("fill", "pink") //why doesn't this work?
+        .style("background-color", "pink")
         .append("g")
         .attr("transform", `translate(${margin.left}, ${margin.top})`);
                 
@@ -39,10 +39,10 @@ function drawScatterplot(data) {
     // add x axis
 
     //add background color - FP 11-8-2023
-    svg.append("rect")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .attr("fill", "pink");
+    // svg.append("rect")
+    //     .attr("width", width + margin.left + margin.right)
+    //     .attr("height", height + margin.top + margin.bottom)
+    //     .attr("fill", "pink");
     
     svg.append("g")
         .style("font", "14px times") // increase font FP 11-8-2023

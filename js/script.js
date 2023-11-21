@@ -39,28 +39,28 @@ function drawScatterplot(data) {
     //console.log(d3.extent(data, function(d) { return d.daysAfterMidtermsAnnounced }));
 
     //11-20-2023 - mouse for tips
-        .on('mouseover', function (d) {
-            d3.select('announcedCircle').transition()
-                .duration('50')
-                .attr('opacity', '.15');
-            tips.transition()
-                .duration(50)
-                .style("opacity", 1);
-            let num = (d.srcElement.__data__.candidate);
-            console.log(num);
-            tips.html(num)
-                .style("left", (d.pageX + 10) + "px")
-                .style("top", (d.pageY - 15) + "px");
+        // .on('mouseover', function (d) {
+        //     d3.select('announcedCircle').transition()
+        //         .duration('50')
+        //         .attr('opacity', '.15');
+        //     tips.transition()
+        //         .duration(50)
+        //         .style("opacity", 1);
+        //     let num = (d.srcElement.__data__.candidate);
+        //     console.log(num);
+        //     tips.html(num)
+        //         .style("left", (d.pageX + 10) + "px")
+        //         .style("top", (d.pageY - 15) + "px");
         
-        })
-        .on('mouseout', function (d) {
-            d3.select('announcedCircle').transition()
-                .duration('50')
-                .attr('opacity', '1');
-                tips.transition()
-                .duration('50')
-                .style("opacity", 0);
-        });
+        // })
+        // .on('mouseout', function (d) {
+        //     d3.select('announcedCircle').transition()
+        //         .duration('50')
+        //         .attr('opacity', '1');
+        //         tips.transition()
+        //         .duration('50')
+        //         .style("opacity", 0);
+        // });
 
     // create x scale
     let xScale = d3.scaleLinear()
@@ -122,7 +122,30 @@ function drawScatterplot(data) {
         //.style("fill", 'blue') // changed the color to 'blue' - FP 11-8-2023
         // dynamic color change from 'red' to 'blue' - FP 11-13-2023
         .style("fill", function(row){ return row.party == 'D' ? 'blue' : 'red' })
-        .style('opacity', 0.75); 
+        .style('opacity', 0.75)
+        .on('mouseover', function (d) {
+            d3.select('announcedCircle').transition()
+                .duration('50')
+                .attr('opacity', '.15');
+            tips.transition()
+                .duration(50)
+                .style("opacity", 1);
+            let num = (d.srcElement.__data__.candidate);
+            let cand = (d.srcElement.__data__.announced);
+            console.log(num);
+            tips.html(num + "<br>" + cand)
+                .style("left", (d.pageX + 10) + "px")
+                .style("top", (d.pageY - 15) + "px");
+        
+        })
+        .on('mouseout', function (d) {
+            d3.select('announcedCircle').transition()
+                .duration('50')
+                .attr('opacity', '1');
+                tips.transition()
+                .duration('50')
+                .style("opacity", 0);
+        }); 
 }
 
 main();
